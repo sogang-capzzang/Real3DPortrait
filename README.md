@@ -20,9 +20,10 @@ This is the official repo of Real3D-Portrait with Pytorch implementation, for on
 - We release the code of GeneFace++, ([https://github.com/yerfor/GeneFacePlusPlus](https://github.com/yerfor/GeneFacePlusPlus)), a NeRF-based person-specific talking face system, which aims at producing high-quality talking face videos with extreme idenetity-similarity of the target person.
 
 # Quick Start!
-## Environment Installation
+# 캡짱:(한글로 설명한 부분만 실행)
+## Environment Installation (1. 아래 링크 순서대로 우선적으로 환경 구축)
 Please refer to [Installation Guide](docs/prepare_env/install_guide.md), prepare a Conda environment `real3dportrait`.
-## Download Pre-trained & Third-Party Models
+## Download Pre-trained & Third-Party Models (2. Pre-trained file 모두 다운받고 아래 폴더 형식처럼 세팅[deep_2drecon/BFM 과 checkpoint 2개 모두] )
 ### 3DMM BFM Model
 Download 3DMM BFM Model from [Google Drive](https://drive.google.com/drive/folders/1o4t5YIw7w4cMUN4bgU9nPf6IyWVG1bEk?usp=sharing) or [BaiduYun Disk](https://pan.baidu.com/s/1aqv1z_qZ23Vp2VP4uxxblQ?pwd=m9q5 ) with Password m9q5. 
 
@@ -57,7 +58,7 @@ checkpoints/
     └── mit_b0.pth
 ```
 
-## Inference
+## Inference (3. 환경 세팅 완료 하면 CLI 방식으로 추론 진행)
 Currently, we provide **CLI**, **Gradio WebUI** and **Google Colab** for inference. We support both Audio-Driven and Video-Driven methods:
 
 - For audio-driven, at least prepare `source image` and `driving audio`
@@ -72,13 +73,33 @@ python inference/app_real3dportrait.py
 ### Google Colab
 Run all the cells in this [Colab](https://colab.research.google.com/github/yerfor/Real3DPortrait/blob/main/inference/real3dportrait_demo.ipynb).
 
-### CLI Inference
+### CLI Inference 
+## (3. 아래 커맨드로 실행 예정: 먼저 해당 디렉토리에서 conda 환경 활성화)
 Firstly, switch to project folder and activate conda environment:
 ```bash
 cd <Real3DPortraitRoot>
 conda activate real3dportrait
 export PYTHONPATH=./
 ```
+## (4. --src_img (보호자 이미지), --drv_aud (보호자 음성), --drv_pose static (정적 움직임), --out_name (output file 이름), --low_memory_usage (GPU 메모리 부족시 사용 옵션))
+# 5. 의 input 데이터 전처리한 이미지를 바탕으로 해당 커맨드 실행
+## (예시)
+```bash
+python inference/real3d_infer.py \
+--src_img data/raw/examples/1.png \
+--drv_aud data/raw/examples/1.wav \
+--drv_pose static \
+--out_name output.mp4 \
+--low_memory_usage (이 옵션은 우선 없이 돌려보고 runtime error 뜨면 추가해서 재실행)
+```
+
+## (5. src_img의 경우 512x512로 resize 후 사용해야 성능이 robust 함. drv_aud의 경우 .m4a가 아닌 .wav 파일로 변환)
+# resize 관련 코드: https://colab.research.google.com/drive/1GA8jHqbHt8cS_wLXMKAngL39siZKhr86?usp=drive_link
+# m4a -> wav 변환: 셸에서 ffmpef 모듈 설치 후 다음 커맨드 실행: ffmpeg -i input.m4a output.wav
+
+## (6. LipSync 영상 평가 metric : SyncNet)
+# SyncNet 관련 코드: https://colab.research.google.com/drive/1FkROcjRg6Kme6VqnA4wu2D-N2Wi-RRB7?usp=drive_link
+
 For audio-driven, provide source image and driving audio:
 ```bash
 python inference/real3d_infer.py \
@@ -97,6 +118,7 @@ python inference/real3d_infer.py \
 --bg_img <PATH_TO_BACKGROUND_IMAGE, OPTIONAL> \
 --out_name <PATH_TO_OUTPUT_VIDEO, OPTIONAL>
 ```
+## 추가 옵션으로 아래 사항 사용 가능
 Some optional parameters：
 - `--drv_pose` provide motion pose information, default to be static poses
 - `--bg_img` provide background information, default to be image extracted from source
