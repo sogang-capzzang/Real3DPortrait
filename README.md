@@ -23,6 +23,8 @@ This is the official repo of Real3D-Portrait with Pytorch implementation, for on
 # 캡짱:(한글로 설명한 부분만 실행)
 ## Environment Installation (1. 아래 링크 순서대로 우선적으로 환경 구축)
 Please refer to [Installation Guide](docs/prepare_env/install_guide.md), prepare a Conda environment `real3dportrait`.
+### 환경 설정 이후에도 일부 모듈 설치 안되는 경우 있으면 에러 뜨는 모듈만 추가적으로 설치
+
 ## Download Pre-trained & Third-Party Models (2. Pre-trained file 모두 다운받고 아래 폴더 형식처럼 세팅[deep_2drecon/BFM 과 checkpoint 2개 모두] )
 ### 3DMM BFM Model
 Download 3DMM BFM Model from [Google Drive](https://drive.google.com/drive/folders/1o4t5YIw7w4cMUN4bgU9nPf6IyWVG1bEk?usp=sharing) or [BaiduYun Disk](https://pan.baidu.com/s/1aqv1z_qZ23Vp2VP4uxxblQ?pwd=m9q5 ) with Password m9q5. 
