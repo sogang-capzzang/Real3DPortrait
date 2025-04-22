@@ -74,16 +74,16 @@ python inference/app_real3dportrait.py
 Run all the cells in this [Colab](https://colab.research.google.com/github/yerfor/Real3DPortrait/blob/main/inference/real3dportrait_demo.ipynb).
 
 ### CLI Inference 
-## (3. 아래 커맨드로 실행 예정: 먼저 해당 디렉토리에서 conda 환경 활성화)
+# (3. 아래 커맨드로 실행 예정: 먼저 해당 디렉토리에서 conda 환경 활성화)
 Firstly, switch to project folder and activate conda environment:
 ```bash
 cd <Real3DPortraitRoot>
 conda activate real3dportrait
 export PYTHONPATH=./
 ```
-## (4. --src_img (보호자 이미지), --drv_aud (보호자 음성), --drv_pose static (정적 움직임), --out_name (output file 이름), --low_memory_usage (GPU 메모리 부족시 사용 옵션))
+# (4. --src_img (보호자 이미지), --drv_aud (보호자 음성), --drv_pose static (정적 움직임), --out_name (output file 이름), --low_memory_usage (GPU 메모리 부족시 사용 옵션))
 # 5. 의 input 데이터 전처리한 이미지를 바탕으로 해당 커맨드 실행
-## (예시)
+# (예시)
 ```bash
 python inference/real3d_infer.py \
 --src_img data/raw/examples/1.png \
@@ -93,12 +93,12 @@ python inference/real3d_infer.py \
 --low_memory_usage (이 옵션은 우선 없이 돌려보고 runtime error 뜨면 추가해서 재실행)
 ```
 
-## (5. src_img의 경우 512x512로 resize 후 사용해야 성능이 robust 함. drv_aud의 경우 .m4a가 아닌 .wav 파일로 변환)
-# resize 관련 코드: https://colab.research.google.com/drive/1GA8jHqbHt8cS_wLXMKAngL39siZKhr86?usp=drive_link
-# m4a -> wav 변환: 셸에서 ffmpef 모듈 설치 후 다음 커맨드 실행: ffmpeg -i input.m4a output.wav
+# (5. src_img의 경우 512x512로 resize 후 사용해야 성능이 robust 함. drv_aud의 경우 .m4a가 아닌 .wav 파일로 변환)
+resize 관련 코드: https://colab.research.google.com/drive/1GA8jHqbHt8cS_wLXMKAngL39siZKhr86?usp=drive_link
+m4a -> wav 변환: 셸에서 ffmpef 모듈 설치 후 다음 커맨드 실행: ffmpeg -i input.m4a output.wav
 
-## (6. LipSync 영상 평가 metric : SyncNet)
-# SyncNet 관련 코드: https://colab.research.google.com/drive/1FkROcjRg6Kme6VqnA4wu2D-N2Wi-RRB7?usp=drive_link
+# (6. LipSync 영상 평가 metric : SyncNet)
+SyncNet 관련 코드: https://colab.research.google.com/drive/1FkROcjRg6Kme6VqnA4wu2D-N2Wi-RRB7?usp=drive_link
 
 For audio-driven, provide source image and driving audio:
 ```bash
