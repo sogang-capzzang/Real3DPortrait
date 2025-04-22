@@ -84,6 +84,7 @@ export PYTHONPATH=./
 ### 모델 돌리기 전 이미지 전처리 진행
 ### (4. src_img의 경우 512x512로 resize 후 사용해야 성능이 robust 함. drv_aud의 경우 .m4a가 아닌 .wav 파일로 변환)
 resize 관련 코드: https://colab.research.google.com/drive/1GA8jHqbHt8cS_wLXMKAngL39siZKhr86?usp=drive_link
+
 m4a -> wav 변환: 셸에서 ffmpef 모듈 설치 후 다음 커맨드 실행: ffmpeg -i input.m4a output.wav
 
 ### (5. --src_img (보호자 이미지), --drv_aud (보호자 음성), --drv_pose static (정적 움직임), --out_name (output file 이름), --low_memory_usage (GPU 메모리 부족시 사용 옵션))
