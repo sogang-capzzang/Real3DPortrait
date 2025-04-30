@@ -10,22 +10,14 @@ This is the official repo of Real3D-Portrait with Pytorch implementation, for on
     <br>
 </p>
 
-# 🔥MimicTalk Released
-**We have released the code of MimicTalk ([https://github.com/yerfor/MimicTalk/](https://github.com/yerfor/MimicTalk/)), which is a SOTA NeRF-based person-specific talking face method and achieves better visual quality and enables talking style control.**
-
-## 🔥 Update
-- \[2024.07.02\] We release the training code of the whole system, including audio-to-motion model, image-to-plane model, secc2plane model, and the secc2plane_torso model, please refer to `docs/train_models`. We also release the code to preprocess and binarize the dataset, please refer to `docs/process_data`. Thanks for your patience!
-
-## You may also interested in 
-- We release the code of GeneFace++, ([https://github.com/yerfor/GeneFacePlusPlus](https://github.com/yerfor/GeneFacePlusPlus)), a NeRF-based person-specific talking face system, which aims at producing high-quality talking face videos with extreme idenetity-similarity of the target person.
-
 # Quick Start!
-# 캡짱:(한글로 설명한 부분만 실행)
-## Environment Installation (1. 아래 링크 순서대로 우선적으로 환경 구축)
+## Environment Installation
+1. 아래 링크 순서대로 우선적으로 환경 구축
 Please refer to [Installation Guide](docs/prepare_env/install_guide.md), prepare a Conda environment `real3dportrait`.
 ### 환경 설정 이후에도 일부 모듈 설치 안되는 경우 있으면 에러 뜨는 모듈만 추가적으로 설치
 
-## Download Pre-trained & Third-Party Models (2. Pre-trained file 모두 다운받고 아래 폴더 형식처럼 세팅[deep_2drecon/BFM 과 checkpoint 2개 모두] )
+## Download Pre-trained & Third-Party Models
+2. Pre-trained file 모두 다운받고 아래 폴더 형식처럼 세팅[deep_2drecon/BFM 과 checkpoint 2개 모두]
 ### 3DMM BFM Model
 Download 3DMM BFM Model from [Google Drive](https://drive.google.com/drive/folders/1o4t5YIw7w4cMUN4bgU9nPf6IyWVG1bEk?usp=sharing) or [BaiduYun Disk](https://pan.baidu.com/s/1aqv1z_qZ23Vp2VP4uxxblQ?pwd=m9q5 ) with Password m9q5. 
 
@@ -60,37 +52,41 @@ checkpoints/
     └── mit_b0.pth
 ```
 
-## Inference (3. 환경 세팅 완료 하면 CLI 방식으로 추론 진행)
+## Inference
+3. 환경 세팅 완료 하면 CLI 방식으로 추론 진행
 Currently, we provide **CLI**, **Gradio WebUI** and **Google Colab** for inference. We support both Audio-Driven and Video-Driven methods:
 
 - For audio-driven, at least prepare `source image` and `driving audio`
 - For video-driven, at least prepare `source image` and `driving expression video`
 
-### Gradio WebUI
+### Gradio WebUI 버전
 Run Gradio WebUI demo, upload resouces in webpage，click `Generate` button to inference：
 ```bash
 python inference/app_real3dportrait.py
 ```
 
-### Google Colab
+### Google Colab 버전
 Run all the cells in this [Colab](https://colab.research.google.com/github/yerfor/Real3DPortrait/blob/main/inference/real3dportrait_demo.ipynb).
 
-### CLI Inference 
-### (3. 아래 커맨드로 실행 예정: 먼저 해당 디렉토리에서 conda 환경 활성화)
+### CLI Inference 버전
 Firstly, switch to project folder and activate conda environment:
 ```bash
 cd <Real3DPortraitRoot>
 conda activate real3dportrait
 export PYTHONPATH=./
 ```
-### 모델 돌리기 전 이미지 전처리 진행
-### (4. src_img의 경우 512x512로 resize 후 사용해야 성능이 robust 함. drv_aud의 경우 .m4a가 아닌 .wav 파일로 변환)
-resize 관련 코드: https://colab.research.google.com/drive/1GA8jHqbHt8cS_wLXMKAngL39siZKhr86?usp=drive_link
+### input 전처리 진행
+4. src_img의 경우 512x512로 resize 후 사용해야 성능이 robust 함. drv_aud의 경우 .m4a가 아닌 .wav 파일로 변환
 
-m4a -> wav 변환: 셸에서 ffmpef 모듈 설치 후 다음 커맨드 실행: ffmpeg -i input.m4a output.wav
+[resize_img_to_512](https://github.com/sogang-capzzang/Real3DPortrait/blob/main/resize_img_to_512.py)
 
-### (5. --src_img (보호자 이미지), --drv_aud (보호자 음성), --drv_pose static (정적 움직임), --out_name (output file 이름), --low_memory_usage (GPU 메모리 부족시 사용 옵션))
+m4a -> wav 변환: 셸에서 ffmpeg 모듈 설치 후 다음 커맨드 실행
+```
+ffmpeg -i input.m4a output.wav
+```
+
 ## (실행 커맨드 예시)
+5. --src_img (보호자 이미지), --drv_aud (보호자 음성), --drv_pose static (정적 움직임), --out_name (output file 이름), --low_memory_usage (GPU 메모리 부족시 사용 옵션))
 ```bash
 python inference/real3d_infer.py \
 --src_img data/raw/examples/1.png \
@@ -100,8 +96,8 @@ python inference/real3d_infer.py \
 --low_memory_usage (이 옵션은 우선 없이 돌려보고 runtime error 뜨면 추가해서 재실행)
 ```
 
-### (6. LipSync 영상 평가 metric : SyncNet)
-SyncNet 관련 코드: https://colab.research.google.com/drive/1FkROcjRg6Kme6VqnA4wu2D-N2Wi-RRB7?usp=drive_link
+### (LipSync 영상 평가 metric : SyncNet)
+[SyncNet 관련 코드](https://github.com/sogang-capzzang/syncnet)
 
 For audio-driven, provide source image and driving audio:
 ```bash
@@ -142,13 +138,6 @@ python inference/real3d_infer.py \
 --out_mode concat_debug
 ```
 
-# ToDo
-- [x] **Release Pre-trained weights of Real3D-Portrait.**
-- [x] **Release Inference Code of Real3D-Portrait.**
-- [x] **Release Gradio Demo of Real3D-Portrait..**
-- [x] **Release Google Colab of Real3D-Portrait..**
-- [x] **Release Training Code of Real3D-Portrait.**
-
 # Disclaimer
 Any organization or individual is prohibited from using any technology mentioned in this paper to generate someone's talking video without his/her consent, including but not limited to government leaders, political figures, and celebrities. If you do not comply with this item, you could be in violation of copyright laws.
 
@@ -160,17 +149,5 @@ If you found this repo helpful to your work, please consider cite us:
   author={Ye, Zhenhui and Zhong, Tianyun and Ren, Yi and Yang, Jiaqi and Li, Weichuang and Huang, Jiawei and Jiang, Ziyue and He, Jinzheng and Huang, Rongjie and Liu, Jinglin and others},
   journal={arXiv preprint arXiv:2401.08503},
   year={2024}
-}
-@article{ye2023geneface++,
-  title={GeneFace++: Generalized and Stable Real-Time Audio-Driven 3D Talking Face Generation},
-  author={Ye, Zhenhui and He, Jinzheng and Jiang, Ziyue and Huang, Rongjie and Huang, Jiawei and Liu, Jinglin and Ren, Yi and Yin, Xiang and Ma, Zejun and Zhao, Zhou},
-  journal={arXiv preprint arXiv:2305.00787},
-  year={2023}
-}
-@article{ye2023geneface,
-  title={GeneFace: Generalized and High-Fidelity Audio-Driven 3D Talking Face Synthesis},
-  author={Ye, Zhenhui and Jiang, Ziyue and Ren, Yi and Liu, Jinglin and He, Jinzheng and Zhao, Zhou},
-  journal={arXiv preprint arXiv:2301.13430},
-  year={2023}
 }
 ```
