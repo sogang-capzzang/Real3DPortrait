@@ -12,14 +12,14 @@ This is the official repo of Real3D-Portrait with Pytorch implementation, for on
 
 # Quick Start!
 ## Environment Installation
-1. 아래 링크 순서대로 우선적으로 환경 구축
+아래 링크 순서대로 우선적으로 환경 구축
 
 Please refer to [Installation Guide](docs/prepare_env/install_guide.md), prepare a Conda environment `real3dportrait`.
 
 환경 설정 이후에도 일부 모듈 설치 안되는 경우 있으면 에러 뜨는 모듈만 추가적으로 설치
 
 ## Download Pre-trained & Third-Party Models
-2. Pre-trained file 모두 다운받고 아래 폴더 형식처럼 세팅[deep_2drecon/BFM 과 checkpoint 2개 모두]
+Pre-trained file 모두 다운받고 아래 폴더 형식처럼 세팅[deep_2drecon/BFM 과 checkpoints 2개 모두]
 ### 3DMM BFM Model
 Download 3DMM BFM Model from [Google Drive](https://drive.google.com/drive/folders/1o4t5YIw7w4cMUN4bgU9nPf6IyWVG1bEk?usp=sharing) or [BaiduYun Disk](https://pan.baidu.com/s/1aqv1z_qZ23Vp2VP4uxxblQ?pwd=m9q5 ) with Password m9q5. 
 
@@ -55,7 +55,8 @@ checkpoints/
 ```
 
 ## Inference
-3. 환경 세팅 완료 하면 CLI 방식으로 추론 진행
+환경 세팅 완료 하면 CLI 방식으로 추론 진행
+
 Currently, we provide **CLI**, **Gradio WebUI** and **Google Colab** for inference. We support both Audio-Driven and Video-Driven methods:
 
 - For audio-driven, at least prepare `source image` and `driving audio`
@@ -78,9 +79,11 @@ conda activate real3dportrait
 export PYTHONPATH=./
 ```
 ### input 전처리 진행
-4. src_img의 경우 512x512로 resize 후 사용해야 성능이 robust 함. drv_aud의 경우 .m4a가 아닌 .wav 파일로 변환
+src_img의 경우 512x512로 resize 후 사용해야 성능이 robust 함
 
-[resize_img_to_512](https://github.com/sogang-capzzang/Real3DPortrait/blob/main/resize_img_to_512.py)
+Image Resize: [resize_img_to_512](https://github.com/sogang-capzzang/Real3DPortrait/blob/main/resize_img_to_512.py)
+
+drv_aud의 경우 .m4a가 아닌 .wav 파일로 변환
 
 m4a -> wav 변환: 셸에서 ffmpeg 모듈 설치 후 다음 커맨드 실행
 ```
@@ -88,7 +91,7 @@ ffmpeg -i input.m4a output.wav
 ```
 
 ## (실행 커맨드 예시)
-5. --src_img (보호자 이미지), --drv_aud (보호자 음성), --drv_pose static (정적 움직임), --out_name (output file 이름), --low_memory_usage (GPU 메모리 부족시 사용 옵션))
+--src_img (보호자 이미지), --drv_aud (보호자 음성), --drv_pose static (정적 움직임), --out_name (output file 이름), --low_memory_usage (GPU 메모리 부족시 사용 옵션))
 ```bash
 python inference/real3d_infer.py \
 --src_img data/raw/examples/1.png \
